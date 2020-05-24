@@ -38,7 +38,17 @@ namespace WebStore.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Title = "Lesson1";
+            //ViewData["Title"] = "Lesson1";
+
             return View(_employees);
+        }
+
+        public IActionResult EmployeeDetails(int id)
+        {
+            var employee = _employees.FirstOrDefault(emp => emp.Id == id);
+            if (employee is null) return NotFound();
+            else return View(employee);
         }
     }
 }

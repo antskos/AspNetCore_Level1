@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta name="Employees Model"/>
-    <title>"Action Home.Index"</title>
+    <title>"Web Store @ViewBag.Title"</title>
 </head>
 
 <body>
@@ -21,6 +21,7 @@
             <th>Name</th>
             <th>Patronymic</th>
             <th>Age</th>
+            <th></th>
         </tr>
     </thead>
     
@@ -33,6 +34,7 @@
             <td>@employee.Name</td>
             <td>@employee.Patronymic</td>
             <td>@employee.Age</td>
+            <td> <a href="Home/EmployeeDetails/@employee.Id">more info</a> </td>
         </tr>
         }
     </tbody>
