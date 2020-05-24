@@ -1,16 +1,41 @@
-﻿@{
-}
+﻿@model IEnumerable<WebStore.Models.Employee>
+
 
 <!DOCTYPE html>
 
 <html>
 <head>
-    <meta name="SomeName" content="SomeContent"/>
+    <meta name="Employees Model"/>
     <title>"Action Home.Index"</title>
 </head>
 
 <body>
-    <h3>Header</h3>
-    <p>First view</p>
+    <h3>Employees</h3>
+<hr/>
+
+<table>
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Surname</th>
+            <th>Name</th>
+            <th>Patronymic</th>
+            <th>Age</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        @foreach (var employee in Model)
+        {
+        <tr>
+            <td>@employee.Id</td>
+            <td>@employee.Surname</td>
+            <td>@employee.Name</td>
+            <td>@employee.Patronymic</td>
+            <td>@employee.Age</td>
+        </tr>
+        }
+    </tbody>
+</table>    
 </body>
 </html>
