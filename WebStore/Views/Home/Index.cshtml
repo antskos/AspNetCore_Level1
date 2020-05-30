@@ -1,43 +1,20 @@
-﻿@model IEnumerable<WebStore.Models.Employee>
+﻿<partial name="Partial/Index/_Slider" />
 
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <partial name="Partial/Index/_LeftSideBar" />
+            </div>
 
-<!DOCTYPE html>
+            <div class="col-sm-9 padding-right">
+                <partial name="Partial/Index/_FeaturesItems" />
 
-<html>
-<head>
-    <meta name="Employees Model"/>
-    <title>"Web Store @ViewBag.Title"</title>
-</head>
+                <partial name="Partial/Index/_CategoryTab" />
 
-<body>
-    <h3>Employees</h3>
-<hr/>
+                <partial name="Partial/Index/_RecommendedItems" />
 
-<table>
-    <thead>
-        <tr>
-            <th>id</th>
-            <th>Surname</th>
-            <th>Name</th>
-            <th>Patronymic</th>
-            <th>Age</th>
-            <th></th>
-        </tr>
-    </thead>
-    
-    <tbody>
-        @foreach (var employee in Model)
-        {
-        <tr>
-            <td>@employee.Id</td>
-            <td>@employee.Surname</td>
-            <td>@employee.Name</td>
-            <td>@employee.Patronymic</td>
-            <td>@employee.Age</td>
-            <td> <a href="Home/EmployeeDetails/@employee.Id">more info</a> </td>
-        </tr>
-        }
-    </tbody>
-</table>    
-</body>
-</html>
+            </div>
+        </div>
+    </div>
+</section>
