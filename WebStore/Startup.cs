@@ -29,10 +29,10 @@ namespace WebStore
                 app.UseBrowserLink();
             }
 
-            app.UseRouting();
-
             app.UseStaticFiles();
             app.UseDefaultFiles();
+
+            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
