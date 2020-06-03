@@ -85,5 +85,37 @@ namespace WebStore.Controllers
         }
 
         #endregion
+
+        #region удаление записи о сотруднике
+        public IActionResult Delete(int id)
+        {
+            if (id <= 0)
+                return BadRequest();
+
+            var employee = _employeesData.GetById(id);
+            if (employee is null)
+                return NotFound();
+
+            return View(new EmployeeViewModel
+            {
+                Id = employee.Id,
+                Surname = employee.Surname,
+                Name = employee.Name,
+                Patronymic = employee.Patronymic,
+                Age = employee.Age
+            });
+        }
+
+        [HttpPost]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            _employeesData.Delete(id);
+            _employeesData.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+
+        #endregion
     }
 }
