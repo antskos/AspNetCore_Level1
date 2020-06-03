@@ -1,13 +1,20 @@
 ﻿using System;
-namespace WebStore.Models
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace WebStore.ViewModels
 {
-    public class Employee
+    public class EmployeeViewModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Patronymic { get; set; }
-        public int Age { get; set; }
 
+        public string Name { get; set; }
+
+        public string Surname { get; set; }
+
+        public string Patronymic { get; set; }
+
+        public int Age { get; set; }
     }
 }
