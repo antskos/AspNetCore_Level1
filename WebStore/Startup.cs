@@ -29,6 +29,8 @@ namespace WebStore
             //services.AddTransient<IEmployeesData, InMemoryEmployeesData>();   // 2-ой вариант
 
             //services.AddScoped<IEmployeesData, InMemoryEmployeesData>();      // 3-ий вариант
+
+            services.AddSingleton<IProductData, InMemoryProductData>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
