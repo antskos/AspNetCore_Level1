@@ -65,6 +65,14 @@ namespace WebStore.Controllers
             if (Model is null)
                 throw new ArgumentNullException(nameof(Model));
 
+            // валидация модели в программе
+            if (Model.Patronymic.Length < 5)
+                ModelState.AddModelError("Patronymic", "Длина отчества менее пяти символов не допускается");
+
+
+            if (!ModelState.IsValid)
+                    return View(Model);
+
             var employee = new Employee
             {
                 Id = Model.Id,
