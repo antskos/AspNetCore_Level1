@@ -7,23 +7,40 @@
     <table class="table">
         <thead>
             <tr>
+                <th></th>
                 <th>id</th>
                 <th>Фамилия</th>
                 <th>Имя</th>
                 <th>отчество</th>
                 <th>Возраст</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var emp in Model)
             {
             <tr>
+                <td>
+                    <a asp-controller="Employees" asp-action="EmployeeDetails" asp-route-id="@emp.Id">
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+                </td>
                 <td>@emp.Id</td>
                 <td>@emp.Surname</td>
                 <td>@emp.Name</td>
                 <td>@emp.Patronymic</td>
                 <td>@emp.Age</td>
-                <td><a asp-controller="Employees" asp-action="EmployeeDetails" asp-route-id="@emp.Id">Детальная информация</a></td>
+                <td>
+                    <a asp-controller="Employees" asp-action="Edit" asp-route-id="@emp.Id">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                </td>
+                <td>
+                    <a asp-controller="Employees" asp-action="Delete" asp-route-id="@emp.Id" class="text-danger">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                </td>
             </tr>
             }
         </tbody>
