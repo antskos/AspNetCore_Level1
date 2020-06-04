@@ -99,8 +99,8 @@ namespace WebStore.Controllers
             return View(new EmployeeViewModel
             {
                 Id = employee.Id,
-                Surname = employee.Surname,
                 Name = employee.Name,
+                Surname = employee.Surname,
                 Patronymic = employee.Patronymic,
                 Age = employee.Age
             });
