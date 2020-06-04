@@ -11,6 +11,7 @@ namespace WebStore.ViewModels
         public int Id { get; set; }
 
         [Display(Name = "Имя")]
+        [RegularExpression(@"([A-Z][a-z]+)|([А-Я][а-яё]+)", ErrorMessage = "Имя должно быть на латинице или на кириллице и начинаться с заглавной буквы")]
         [Required(ErrorMessage = "Поле 'Имя' обязательно для заполнения")]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Имя должно быть длинной от 2 до 100 символов")]
         public string Name { get; set; }
