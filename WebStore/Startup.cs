@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebStore.Infrastructure.Services;
 using WebStore.Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using WebStore.DAL.Contetxt;
 
 namespace WebStore
 {
@@ -20,6 +22,9 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<WebStoreDB>(opt =>
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             //варианты регистрации сервисов: их 3 вида
