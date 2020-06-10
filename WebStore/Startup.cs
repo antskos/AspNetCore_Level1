@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -22,7 +22,15 @@ namespace WebStore
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
+            //варианты регистрации сервисов: их 3 вида
+            
+            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();     // 1-ый вариант
+
+            //services.AddTransient<IEmployeesData, InMemoryEmployeesData>();   // 2-ой вариант
+
+            //services.AddScoped<IEmployeesData, InMemoryEmployeesData>();      // 3-ий вариант
+
+            services.AddSingleton<IProductData, InMemoryProductData>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
