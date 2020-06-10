@@ -8,6 +8,7 @@ using WebStore.Infrastructure.Services;
 using WebStore.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Contetxt;
+using WebStore.Data;
 
 namespace WebStore
 {
@@ -25,6 +26,8 @@ namespace WebStore
             services.AddDbContext<WebStoreDB>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddTransient<WebStoreDBInitializer>();
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             //варианты регистрации сервисов: их 3 вида
@@ -38,8 +41,10 @@ namespace WebStore
             services.AddSingleton<IProductData, InMemoryProductData>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
         {
+            db.Initialize();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
