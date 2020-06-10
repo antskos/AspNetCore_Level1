@@ -5,10 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebStore.Infrastructure.Services;
-using WebStore.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Contetxt;
 using WebStore.Data;
+using WebStore.Infrastructure.Services.InSQL;
+using WebStore.Infrastructure.Services.InMemory;
+using WebStore.Infrastructure.Interfaces;
 
 namespace WebStore
 {
@@ -38,7 +40,8 @@ namespace WebStore
 
             //services.AddScoped<IEmployeesData, InMemoryEmployeesData>();      // 3-ий вариант
 
-            services.AddSingleton<IProductData, InMemoryProductData>();
+            //services.AddSingleton<IProductData, InMemoryProductData>();
+            services.AddScoped<IProductData, SqlProductData>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
