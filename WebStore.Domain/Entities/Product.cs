@@ -22,7 +22,7 @@ namespace WebStore.Domain.Entities
 
 
         [ForeignKey(nameof(BrandId))]
-        public virtual Section Brand { get; set; }
+        public virtual Brand Brand { get; set; }
 
 
         [Required]
