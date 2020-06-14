@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.DAL.Contetxt;
 using WebStore.Domain.Entities.Employees;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebStore.Infrastructure.Services.InSQL
 {
@@ -10,34 +13,55 @@ namespace WebStore.Infrastructure.Services.InSQL
         private readonly WebStoreDB _db;
         public SqlEmployeesData(WebStoreDB db) => _db = db;
 
-        int IEmployeesData.Add(Employee emp)
+        public int Add(Employee emp)
         {
-            throw new System.NotImplementedException();
+            if (emp is null) throw new ArgumentNullException(nameof(emp));
+            if (_db.Employees.Contains(emp)) return emp.Id;
+
+            _db.Employees.Add(emp);
+            return emp.Id;
         }
 
-        bool IEmployeesData.Delete(int id)
+        public bool Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var item = _db.Employees.Find(id);
+
+            if (item is null) return false;
+
+            //_db.Employees.Remove(item);
+
+            //_db.Entry(item).State = EntityState.Deleted;
+
+            _db.Remove(item);
+            return true;
         }
 
-        void IEmployeesData.Edit(Employee emp)
+        public void Edit(Employee emp)
         {
-            throw new System.NotImplementedException();
+            if (emp is null) throw new ArgumentNullException(nameof(emp));
+
+            //var item = GetById(emp.Id);
+            //if (item is null) return;
+            //if (_db.Employees.Contains(emp)) return;
+
+            //item.Name = emp.Name;
+            //item.Surname = emp.Surname;
+            //item.Patronymic = emp.Patronymic;
+            //item.Age = emp.Age;
+
+            // используем, написанные методы EF
+            //_db.Attach(emp);
+            //_db.Entry(emp).State = EntityState.Modified;
+
+            //ещё способ
+            _db.Update(emp);
         }
 
-        IEnumerable<Employee> IEmployeesData.Get()
-        {
-            throw new System.NotImplementedException();
-        }
+        public IEnumerable<Employee> Get() => _db.Employees;
 
-        Employee IEmployeesData.GetById(int id)
-        {
-            throw new System.NotImplementedException();
-        }
 
-        void IEmployeesData.SaveChanges()
-        {
-            throw new System.NotImplementedException();
-        }
+        public Employee GetById(int id) => /*_db.Employees.Find(id);*/ _db.Employees.FirstOrDefault(emp => emp.Id == id);
+
+        public void SaveChanges() => _db.SaveChanges();
     }
 }
