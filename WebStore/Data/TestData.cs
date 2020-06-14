@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using WebStore.Domain.Entities;
-using WebStore.Infrastructure.Interfaces;
+using WebStore.Domain.Entities.Employees;
 
 
 namespace WebStore.Data
 {
     public static class TestData
     {
-        public static List<Models.Employee> Employees { get; } = new List<Models.Employee>
+        public static List<Employee> Employees { get; } = new List<Employee>
         {
-            new Models.Employee
+            new Employee
             {
                 Id = 1,
                 Name = "Ivan",
@@ -18,7 +18,7 @@ namespace WebStore.Data
                 Patronymic = "Ivanovich",
                 Age = 26
             },
-            new Models.Employee
+            new Employee
             {
                 Id = 2,
                 Name = "Aleksei",
@@ -26,7 +26,7 @@ namespace WebStore.Data
                 Patronymic = "Alekseevich",
                 Age = 35
             },
-            new Models.Employee
+            new Employee
             {
                 Id = 3,
                 Name = "Konstantin",

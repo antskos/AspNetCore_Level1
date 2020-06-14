@@ -11,6 +11,7 @@ using WebStore.Data;
 using WebStore.Infrastructure.Services.InSQL;
 using WebStore.Infrastructure.Services.InMemory;
 using WebStore.Infrastructure.Interfaces;
+using WebStore.Domain.Entities.Employees;
 
 namespace WebStore
 {

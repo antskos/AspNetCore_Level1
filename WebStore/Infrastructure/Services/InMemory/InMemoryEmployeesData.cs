@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebStore.Infrastructure.Interfaces;
-using WebStore.Models;
+using WebStore.Domain.Entities.Employees;
 using WebStore.Data;
 
 namespace WebStore.Infrastructure.Services.InMemory
 {
     public class InMemoryEmployeesData : IEmployeesData
     {
-        private static readonly List<Models.Employee> _employees = TestData.Employees;
+        private static readonly List<Employee> _employees = TestData.Employees;
 
         public int Add(Employee emp)
         {

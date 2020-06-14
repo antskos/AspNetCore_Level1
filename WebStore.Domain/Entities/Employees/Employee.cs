@@ -1,12 +1,15 @@
-﻿using System;
-namespace WebStore.Models
+﻿using WebStore.Domain.Entities.Base;
+
+namespace WebStore.Domain.Entities.Employees
 {
-    public class Employee
+    public class Employee : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
+
         public string Surname { get; set; }
+
         public string Patronymic { get; set; }
+
         public int Age { get; set; }
 
     }
