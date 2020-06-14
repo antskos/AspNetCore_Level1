@@ -10,7 +10,7 @@ using WebStore.DAL.Contetxt;
 namespace WebStore.DAL.Migrations
 {
     [DbContext(typeof(WebStoreDB))]
-    [Migration("20200614204417_EmployeesTableAdded")]
+    [Migration("20200614204843_EmployeesTableAdded")]
     partial class EmployeesTableAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,12 +51,14 @@ namespace WebStore.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Patronymic")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

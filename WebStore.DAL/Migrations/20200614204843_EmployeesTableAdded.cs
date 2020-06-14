@@ -12,8 +12,8 @@ namespace WebStore.DAL.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    Surname = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
+                    Surname = table.Column<string>(nullable: false),
                     Patronymic = table.Column<string>(nullable: true),
                     Age = table.Column<int>(nullable: false)
                 },
