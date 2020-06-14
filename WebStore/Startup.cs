@@ -35,7 +35,7 @@ namespace WebStore
 
             //варианты регистрации сервисов: их 3 вида
             
-            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();     // 1-ый вариант
+           //services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();     // 1-ый вариант
 
             //services.AddTransient<IEmployeesData, InMemoryEmployeesData>();   // 2-ой вариант
 
@@ -43,6 +43,7 @@ namespace WebStore
 
             //services.AddSingleton<IProductData, InMemoryProductData>();
             services.AddScoped<IProductData, SqlProductData>();
+            services.AddScoped<IEmployeesData, SqlEmployeesData>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
