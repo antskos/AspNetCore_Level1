@@ -12,6 +12,9 @@ using WebStore.Infrastructure.Services.InSQL;
 using WebStore.Infrastructure.Services.InMemory;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Domain.Entities.Employees;
+using WebStore.Domain.Entities.Identity;
+using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace WebStore
 {
@@ -30,6 +33,48 @@ namespace WebStore
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<WebStoreDBInitializer>();
+
+            services.AddIdentity<User, Role>().
+                AddEntityFrameworkStores<WebStoreDB>().
+                AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(opt =>
+                {
+#if DEBUG
+                    // требования к паролю
+                    opt.Password.RequiredLength = 3;
+                    opt.Password.RequireDigit = false;
+                    opt.Password.RequireLowercase = false;
+                    opt.Password.RequireUppercase = false;
+                    opt.Password.RequireNonAlphanumeric = false;
+                    opt.Password.RequiredUniqueChars = 3;
+
+                    // требования к пользователю
+                    opt.User.RequireUniqueEmail = false;
+#endif
+                    //создаваемые пользователи не заблокированы
+                    opt.Lockout.AllowedForNewUsers = true;
+                    // кол-во попыток ввода пароля
+                    opt.Lockout.MaxFailedAccessAttempts = 7;
+                    // блокировка пользователя при неверном пароле на кол-во минут
+                    opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+                });
+
+            services.ConfigureApplicationCookie(opt =>
+                {
+                    // настройки cookies
+                    opt.Cookie.Name = "CookiesForWebStore";
+                    opt.Cookie.HttpOnly = true;
+                    opt.ExpireTimeSpan = TimeSpan.FromDays(10);
+                    
+                    // настройки адресов авторизации
+                    opt.LoginPath = "/Account/Login";
+                    opt.LogoutPath = "/Account/Logout";
+                    opt.AccessDeniedPath = "/Account/AccessDenied";
+
+                    // повышение безопасности
+                    opt.SlidingExpiration = true;
+                });
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
