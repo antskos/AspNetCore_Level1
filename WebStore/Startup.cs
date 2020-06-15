@@ -5,6 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebStore.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
+using WebStore.DAL.Contetxt;
+using WebStore.Data;
+using WebStore.Infrastructure.Services.InSQL;
+using WebStore.Infrastructure.Services.InMemory;
 using WebStore.Infrastructure.Interfaces;
 
 namespace WebStore
@@ -20,6 +25,11 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<WebStoreDB>(opt =>
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddTransient<WebStoreDBInitializer>();
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             //варианты регистрации сервисов: их 3 вида
@@ -30,11 +40,14 @@ namespace WebStore
 
             //services.AddScoped<IEmployeesData, InMemoryEmployeesData>();      // 3-ий вариант
 
-            services.AddSingleton<IProductData, InMemoryProductData>();
+            //services.AddSingleton<IProductData, InMemoryProductData>();
+            services.AddScoped<IProductData, SqlProductData>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
         {
+            db.Initialize();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using WebStore.Data;
 using System.Linq;
 
-namespace WebStore.Infrastructure.Services
+namespace WebStore.Infrastructure.Services.InMemory
 {
     public class InMemoryProductData : IProductData
     {
