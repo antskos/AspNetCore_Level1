@@ -61,6 +61,24 @@ namespace WebStore.Data
 
                 transaction.Commit();
             }
+
+            if (!_db.Employees.Any())
+                using (var transaction = db.BeginTransaction())
+                {
+                    var employees = TestData.Employees.ToList();
+                    //foreach (var emp in employees)
+                    //{
+                    //    emp.Id = 0;
+                    //}
+                    employees.ForEach(emp => emp.Id = 0);
+                    _db.Employees.AddRange(employees);
+
+                    db.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Employees] ON");
+                    _db.SaveChanges();
+                    db.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Employees] OFF");
+
+                    transaction.Commit();
+                }
         }
     }
 }
