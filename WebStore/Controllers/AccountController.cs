@@ -35,14 +35,14 @@ namespace WebStore.Controllers
                 UserName = model.UserName
             };
 
-            var reg_Result = await _userManager.CreateAsync(user);
-            if (reg_Result.Succeeded) 
+            var reg_result = await _userManager.CreateAsync(user);
+            if (reg_result.Succeeded) 
             {
                 await _signInManager.SignInAsync(user, false);
                 return RedirectToAction("Index", "Home");
             }
 
-            foreach (var error in reg_Result.Errors)
+            foreach (var error in reg_result.Errors)
                     ModelState.AddModelError(string.Empty, error.Description);
 
             return View(model);
@@ -58,7 +58,22 @@ namespace WebStore.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            return RedirectToAction("Index", "Home");
+            var login_result = await _signInManager.PasswordSignInAsync(model.UserName,
+                                                                        model.Password,
+                                                                        model.RememberMe,
+                                                                        true);
+            if (login_result.Succeeded) 
+            {
+                if (Url.IsLocalUrl(model.ReturnUrl))
+                    return Redirect(model.ReturnUrl);
+                else
+                    return RedirectToAction("Index", "Home");
+            }
+            else 
+            {
+                ModelState.AddModelError(string.Empty, "Неверное имя пользователя, или пароль!");
+                return View(model);
+            }
         }
         #endregion
 
