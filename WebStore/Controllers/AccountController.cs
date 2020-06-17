@@ -49,7 +49,18 @@ namespace WebStore.Controllers
         }
         #endregion
 
-        public IActionResult Login() => View();
+        #region Login user
+
+        public IActionResult Login() => View(new LoginViewModel());
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model) 
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            return RedirectToAction("Index", "Home");
+        }
+        #endregion
 
         public IActionResult Logout() => View();
 
