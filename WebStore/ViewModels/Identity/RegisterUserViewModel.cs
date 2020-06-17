@@ -16,7 +16,6 @@ namespace WebStore.ViewModels.Identity
 
         [Required]
         [DataType(DataType.Password)]
-        
         public string Password { get; set; }
 
         [Required]
