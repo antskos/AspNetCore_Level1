@@ -73,9 +73,7 @@ namespace WebStore.Data
                     employees.ForEach(emp => emp.Id = 0);
                     _db.Employees.AddRange(employees);
 
-                    db.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Employees] ON");
                     _db.SaveChanges();
-                    db.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Employees] OFF");
 
                     transaction.Commit();
                 }
