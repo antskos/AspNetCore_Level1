@@ -7,7 +7,7 @@ using WebStore.Infrastructure.Interfaces;
 using WebStore.ViewModels;
 using System.Net.Cache;
 using System;
-using WebStore.Models;
+using WebStore.Domain.Entities.Employees;
 
 namespace WebStore.Controllers
 {
