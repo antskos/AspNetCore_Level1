@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "outputFileName": "wwwroot/css/site.css",
     "inputFiles": [
@@ -12,7 +12,6 @@
     "outputFileName": "wwwroot/js/site.js",
     "inputFiles": [
       "wwwroot/js/main.js",
-      //"wwwroot/js/contact.js",
       "wwwroot/js/price-range.js",
       "wwwroot/js/gmaps.js"
     ],
