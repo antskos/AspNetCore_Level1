@@ -1,13 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using WebStore.Data;
-using WebStore.Infrastructure.Services;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.ViewModels;
-using System.Net.Cache;
-using System;
-using WebStore.Domain.Entities.Employees;
+using WebStore.Infrastructure.Mapping;
 
 namespace WebStore.Controllers
 {
@@ -48,41 +43,27 @@ namespace WebStore.Controllers
                 if (employee is null)
                     return NotFound();
                 else
-                    return View(new EmployeeViewModel
-                    {
-                        Id = employee.Id,
-                        Name = employee.Name,
-                        Surname = employee.Surname,
-                        Patronymic = employee.Patronymic,
-                        Age = employee.Age
-                    });
+                    return View(employee.ToView());
             }
         }
 
         [HttpPost]
-        public IActionResult Edit(EmployeeViewModel Model)
+        public IActionResult Edit(EmployeeViewModel model)
         {
-            if (Model is null)
-                throw new ArgumentNullException(nameof(Model));
+            if (model is null)
+                throw new ArgumentNullException(nameof(model));
 
             // валидация модели в программе
-            if (Model.Patronymic.Length < 5)
+            if (model.Patronymic.Length < 5)
                 ModelState.AddModelError("Patronymic", "Длина отчества менее пяти символов не допускается");
 
 
             if (!ModelState.IsValid)
-                    return View(Model);
+                    return View(model);
 
-            var employee = new Employee
-            {
-                Id = Model.Id,
-                Name = Model.Name,
-                Surname = Model.Surname,
-                Patronymic = Model.Patronymic,
-                Age = Model.Age
-            };
+            var employee = model.FromView();
 
-            if (Model.Id == 0)
+            if (model.Id == 0)
                 _employeesData.Add(employee);
             else
                 _employeesData.Edit(employee);
@@ -104,14 +85,7 @@ namespace WebStore.Controllers
             if (employee is null)
                 return NotFound();
 
-            return View(new EmployeeViewModel
-            {
-                Id = employee.Id,
-                Name = employee.Name,
-                Surname = employee.Surname,
-                Patronymic = employee.Patronymic,
-                Age = employee.Age
-            });
+            return View(employee.ToView());
         }
 
         [HttpPost]
