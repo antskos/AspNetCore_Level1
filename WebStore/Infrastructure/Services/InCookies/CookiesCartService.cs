@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Models;
 using WebStore.ViewModels;
@@ -59,12 +60,35 @@ namespace WebStore.Infrastructure.Services.InCookies
         public void AddToCart(int id)
         {
             var cart = Cart;
-            var item = cart.Items.
+            var item = cart.Items.FirstOrDefault(item => item.ProductId == id);
+            
+            if (item is null)
+                cart.Items.Add(new CartItem(){ ProductId = id, Quantity = 1 });
+            else
+                item.Quantity++;
+            // сериализация корзины в cookies(которая, является строчкой json) 
+            Cart = cart;
         }
 
         public void DecrementFromCart(int id)
         {
-            throw new NotImplementedException();
+            // мой код
+            var cart = Cart;
+            var item = cart.Items.FirstOrDefault(item => item.ProductId == id);
+
+            if (item.Quantity == 1)
+                cart.Items.Remove(item);
+            else
+                item.Quantity--;
+            Cart = cart;
+
+            // у преподавателя такой код
+            //if (item is null) return;   // не понятно как такое может быть(по идее к не добавленому товару, мы не должны иметь возможности применить этот метод)
+            //if (item.Quantity > 0)
+            //    item.Quantity--;
+            //if (item.Quantity == 0)
+            //    cart.Items.Remove(item);
+            // и вообще может вынести во ViewModel, что или товара одна штука, или он удаляется из списка ???
         }
 
         public void RemoveAll()
