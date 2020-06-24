@@ -24,19 +24,19 @@
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
                                 <div class="item active">
-                                    <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
-                                    <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
-                                    <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
+                                    <a href=""><img src="~/images/product-details/similar1.jpg" alt=""></a>
+                                    <a href=""><img src="~/images/product-details/similar2.jpg" alt=""></a>
+                                    <a href=""><img src="~/images/product-details/similar3.jpg" alt=""></a>
                                 </div>
                                 <div class="item">
-                                    <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
-                                    <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
-                                    <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
+                                    <a href=""><img src="~/images/product-details/similar1.jpg" alt=""></a>
+                                    <a href=""><img src="~/images/product-details/similar2.jpg" alt=""></a>
+                                    <a href=""><img src="~/images/product-details/similar3.jpg" alt=""></a>
                                 </div>
                                 <div class="item">
-                                    <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
-                                    <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
-                                    <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
+                                    <a href=""><img src="~/images/product-details/similar1.jpg" alt=""></a>
+                                    <a href=""><img src="~/images/product-details/similar2.jpg" alt=""></a>
+                                    <a href=""><img src="~/images/product-details/similar3.jpg" alt=""></a>
                                 </div>
 
                             </div>
@@ -57,20 +57,20 @@
                             <img src="~/images/shop/@Model.ImageUrl" class="newarrival" alt="" />
                             <h2>@Model.Name</h2>
                             <p>Web ID: @Model.Id.ToString("0000000")</p>
-                            <img src="images/product-details/rating.png" alt="" />
+                            <img src="~/images/product-details/rating.png" alt="" />
                             <span>
                                 <span>@Model.Price.ToString("C")</span>
                                 <label>Quantity:</label>
                                 <input type="text" value="3" />
-                                <button type="button" class="btn btn-default cart">
+                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" type="button" class="btn btn-default cart">
                                     <i class="fa fa-shopping-cart"></i>
                                     Добавить в корзину
-                                </button>
+                                </a>
                             </span>
                             <p><b>Availability:</b> In Stock</p>
                             <p><b>Condition:</b> New</p>
                             <p><b>Бренд</b>@Model.Brand</p>
-                            <a href=""><img src="images/product-details/share.png" class="share img-responsive" alt="" /></a>
+                            <a href=""><img src="~/images/product-details/share.png" class="share img-responsive" alt="" /></a>
                         </div><!--/product-information-->
                     </div>
                 </div><!--/product-details-->

@@ -2,7 +2,9 @@
 using Newtonsoft.Json;
 using System;
 using System.Linq;
+using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Interfaces;
+using WebStore.Infrastructure.Mapping;
 using WebStore.Models;
 using WebStore.ViewModels;
 
@@ -88,22 +90,42 @@ namespace WebStore.Infrastructure.Services.InCookies
             //    item.Quantity--;
             //if (item.Quantity == 0)
             //    cart.Items.Remove(item);
-            // и вообще может вынести во ViewModel, что или товара одна штука, или он удаляется из списка ???
+            // и вообще может вынести во ViewModel, что или товара одна штука или больше, или он удаляется из списка ???
         }
 
         public void RemoveAll()
         {
-            throw new NotImplementedException();
+            var cart = Cart;
+            cart.Items.Clear();         // я написал RemoveAll -- надо будет посмотреть различия
+            Cart = cart;
         }
 
         public void RemoveFromCart(int id)
         {
-            throw new NotImplementedException();
+            var cart = Cart;
+            var item = cart.Items.FirstOrDefault(item => item.ProductId == id);
+
+            if (item is null) 
+                        return;
+            else
+                cart.Items.Remove(item);
+
+            Cart = cart;
         }
 
         public CartViewModel TransformFromCart()
         {
-            throw new NotImplementedException();
+            var products = _productData.GetProducts(new ProductFilter
+            {
+                Ids = Cart.Items.Select(item => item.ProductId).ToArray()
+            });
+
+            var product_view_models = products.ToView().ToDictionary(pr => pr.Id);
+
+            return new CartViewModel
+            {
+                Items = Cart.Items.Select(item => (product_view_models[item.ProductId], item.Quantity))
+            };
         }
     }
 }
