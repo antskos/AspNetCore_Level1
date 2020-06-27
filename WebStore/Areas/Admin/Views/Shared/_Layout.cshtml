@@ -39,10 +39,11 @@
             </div>
         </div>
         <!-- /. NAV TOP  -->
-        
-        <partial name="Partial/_ASideMenu" />
 
-        @RenderBody()
+        <partial name="Partial/_ASideMenu" />
+        <div id="page-wrapper">
+            @RenderBody()
+        </div>
     </div>
     <div class="footer">
 
