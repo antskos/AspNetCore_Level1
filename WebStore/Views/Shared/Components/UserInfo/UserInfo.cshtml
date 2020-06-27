@@ -1,9 +1,13 @@
-﻿
-    <div class="shop-menu pull-right">
-        <ul class="nav navbar-nav">
-            <li><a href="#"><i class="fa fa-user"></i> Профиль</a></li>
-            <li><a href="#"><i class="fa fa-star"></i> Отслеживаемые товары</a></li>
-            <li><a asp-controller="Cart" asp-action="Details"><i class="fa fa-shopping-cart"></i> Корзина</a></li>
-            <li><a asp-controller="Account" asp-action="Logout">Выход</a></li>
-        </ul>
-    </div>
+﻿@using WebStore.Domain.Entities.Identity
+<div class="shop-menu pull-right">
+    <ul class="nav navbar-nav">
+        @if(User.IsInRole(Role.Administrator))
+        {
+            <li><a asp-area="Admin" asp-controller="Home" asp-action="Index">Админка</a></li>
+        }
+        <li><a href="#"><i class="fa fa-user"></i> Профиль</a></li>
+        <li><a href="#"><i class="fa fa-star"></i> Отслеживаемые товары</a></li>
+        <li><a asp-controller="Cart" asp-action="Details"><i class="fa fa-shopping-cart"></i> Корзина</a></li>
+        <li><a asp-controller="Account" asp-action="Logout">Выход</a></li>
+    </ul>
+</div>
