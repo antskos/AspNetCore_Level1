@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Contetxt;
 using WebStore.Data;
 using WebStore.Infrastructure.Services.InSQL;
+using WebStore.Infrastructure.Services.InCookies;
 using WebStore.Infrastructure.Services.InMemory;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Domain.Entities.Employees;
@@ -89,6 +90,7 @@ namespace WebStore
             //services.AddSingleton<IProductData, InMemoryProductData>();
             services.AddScoped<IProductData, SqlProductData>();
             services.AddScoped<IEmployeesData, SqlEmployeesData>();
+            services.AddScoped<ICartService, CookiesCartService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
@@ -104,9 +106,10 @@ namespace WebStore
             app.UseStaticFiles();
             app.UseDefaultFiles();
 
-            app.UseAuthentication();
-
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

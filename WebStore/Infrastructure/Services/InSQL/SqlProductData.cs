@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,13 +22,23 @@ namespace WebStore.Infrastructure.Services.InSQL
         {
             IQueryable<Product> query = _db.Products;
 
-            if (filter?.BrandId != null)
-                query = query.Where(pr => pr.BrandId == filter.BrandId);
+            if (filter?.Ids?.Length > 0)
+                query = query.Where(pr => filter.Ids.Contains(pr.Id));
+            else
+            {
+                if (filter?.BrandId != null)
+                    query = query.Where(pr => pr.BrandId == filter.BrandId);
 
-            if (filter?.SectionId != null)
-                query = query.Where(pr => pr.SectionId == filter.SectionId);
+                if (filter?.SectionId != null)
+                    query = query.Where(pr => pr.SectionId == filter.SectionId);
+            }
 
             return query;
         }
+
+        public Product GetProductById(int id) => _db.Products.
+                                                 Include(p => p.Section).
+                                                 Include(p => p.Brand).
+                                                 FirstOrDefault(p => p.Id == id);
     }
 }
