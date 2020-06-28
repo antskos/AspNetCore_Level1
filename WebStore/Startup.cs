@@ -16,6 +16,9 @@ using WebStore.Domain.Entities.Employees;
 using WebStore.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
+using AutoMapper;
+using Microsoft.CodeAnalysis.FlowAnalysis;
+using WebStore.Infrastructure.AutoMapperProfiles;
 
 namespace WebStore
 {
@@ -30,6 +33,12 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(cfg => 
+                                   {
+                                       cfg.AddProfile<ViewModelsMapping>(); 
+                                   }, 
+                                   typeof(Startup));
+
             services.AddDbContext<WebStoreDB>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
