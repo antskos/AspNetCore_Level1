@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Interfaces;
@@ -9,11 +10,21 @@ namespace WebStore.Controllers
 {
     public class CatalogController : Controller
     {
-        private readonly IProductData _ProductData;
+        private readonly IProductData _productData;
 
-        public CatalogController(IProductData ProductData) => _ProductData = ProductData;
+        /* если нужны проекции классов в нескольких местах,
+         * то экземпляр AutoMapper инициализируем
+           в конструкторе для всего класса */
+        //private readonly IMapper _mapper;
 
-        public IActionResult Shop(int? sectionId, int? brandId)
+        public CatalogController(IProductData ProductData, IMapper mapper)
+        {
+            _productData = ProductData;
+            //_mapper = mapper;
+        }
+
+        // можно подключить экземпляр AutoMapper через атрибут, если он нужен только в одном из методов
+        public IActionResult Shop(int? sectionId, int? brandId, [FromServices] IMapper mapper)
         {
             var filter = new ProductFilter
             {
@@ -21,19 +32,23 @@ namespace WebStore.Controllers
                 BrandId = brandId
             };
 
-            var products = _ProductData.GetProducts(filter);
+            var products = _productData.GetProducts(filter);
 
             return View(new CatalogViewModel
             {
                 SectionId = sectionId,
                 BrandId = brandId,
-                Products = products.ToView().OrderBy(p => p.Order)
+                Products = products.
+                            //ToView()      //замена ручной проекции на автоматическую класса AutoMapper
+                            //Select(p => mapper.Map<ProductViewModel>(p)). // вызывается так
+                            Select(mapper.Map<ProductViewModel>).           // или так
+                            OrderBy(p => p.Order)
             });
         }
 
         public IActionResult Details(int id) 
         {
-            var product = _ProductData.GetProductById(id);
+            var product = _productData.GetProductById(id);
 
             if (product is null)
                 return NotFound();

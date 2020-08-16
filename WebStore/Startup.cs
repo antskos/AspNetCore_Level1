@@ -16,6 +16,9 @@ using WebStore.Domain.Entities.Employees;
 using WebStore.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
+using AutoMapper;
+using Microsoft.CodeAnalysis.FlowAnalysis;
+using WebStore.Infrastructure.AutoMapperProfiles;
 
 namespace WebStore
 {
@@ -30,6 +33,12 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(cfg => 
+                                   {
+                                       cfg.AddProfile<ViewModelsMapping>(); 
+                                   }, 
+                                   typeof(Startup));
+
             services.AddDbContext<WebStoreDB>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -91,6 +100,7 @@ namespace WebStore
             services.AddScoped<IProductData, SqlProductData>();
             services.AddScoped<IEmployeesData, SqlEmployeesData>();
             services.AddScoped<ICartService, CookiesCartService>();
+            services.AddScoped<IOrderService, SqlOrderService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
@@ -113,6 +123,11 @@ namespace WebStore
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                    );
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}"
