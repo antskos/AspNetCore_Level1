@@ -14,6 +14,8 @@ using AutoMapper;
 using WebStore.Services.Products.InSQL;
 using WebStore.Services.Mapping;
 using WebStore.Services.Data;
+using WebStore.Interfaces.TestAPI;
+using WebStore.Clients.Values;
 
 namespace WebStore
 {
@@ -96,6 +98,8 @@ namespace WebStore
             services.AddScoped<IEmployeesData, SqlEmployeesData>();
             services.AddScoped<ICartService, CookiesCartService>();
             services.AddScoped<IOrderService, SqlOrderService>();
+
+            services.AddScoped<IValueService, ValuesClient>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
