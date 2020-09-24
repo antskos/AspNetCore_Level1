@@ -5,9 +5,9 @@ using System.Linq;
 using WebStore.Domain.Entities;
 using WebStore.Domain.ViewModels;
 using WebStore.Interfaces.Services;
-using WebStore.Infrastructure.Mapping;
+using WebStore.Services.Mapping;
 
-namespace WebStore.Infrastructure.Services.InCookies
+namespace WebStore.Services.Products.InCookies
 {
     public class CookiesCartService : ICartService
     {
@@ -15,7 +15,7 @@ namespace WebStore.Infrastructure.Services.InCookies
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly string _cartName;
 
-        public Cart Cart 
+        public Cart Cart
         {
             get
             {
@@ -35,13 +35,13 @@ namespace WebStore.Infrastructure.Services.InCookies
                     return JsonConvert.DeserializeObject<Cart>(cartCookie);
                 }
             }
-            set 
+            set
             {
-                ReplaceCookie(_httpContextAccessor.HttpContext.Response.Cookies, JsonConvert.SerializeObject(value));   
+                ReplaceCookie(_httpContextAccessor.HttpContext.Response.Cookies, JsonConvert.SerializeObject(value));
             }
         }
 
-        private void ReplaceCookie(IResponseCookies cookies, string cookie) 
+        private void ReplaceCookie(IResponseCookies cookies, string cookie)
         {
             cookies.Delete(_cartName);
             cookies.Append(_cartName, cookie);
@@ -55,16 +55,16 @@ namespace WebStore.Infrastructure.Services.InCookies
             var user = httpContextAccessor.HttpContext.User;
             var userName = user.Identity.IsAuthenticated ? user.Identity.Name : null;
             _cartName = $"WebStore.Cart[{userName}]";
-            
+
         }
 
         public void AddToCart(int id)
         {
             var cart = Cart;
             var item = cart.Items.FirstOrDefault(item => item.ProductId == id);
-            
+
             if (item is null)
-                cart.Items.Add(new CartItem(){ ProductId = id, Quantity = 1 });
+                cart.Items.Add(new CartItem() { ProductId = id, Quantity = 1 });
             else
                 item.Quantity++;
             // сериализация корзины в cookies(которая, является строчкой json) 
@@ -104,8 +104,8 @@ namespace WebStore.Infrastructure.Services.InCookies
             var cart = Cart;
             var item = cart.Items.FirstOrDefault(item => item.ProductId == id);
 
-            if (item is null) 
-                        return;
+            if (item is null)
+                return;
             else
                 cart.Items.Remove(item);
 

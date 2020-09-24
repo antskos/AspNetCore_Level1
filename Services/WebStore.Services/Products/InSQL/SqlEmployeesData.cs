@@ -6,7 +6,7 @@ using WebStore.Domain.Entities.Employees;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebStore.Infrastructure.Services.InSQL
+namespace WebStore.Services.Products.InSQL
 {
     public class SqlEmployeesData : IEmployeesData
     {

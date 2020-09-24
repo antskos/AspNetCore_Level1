@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebStore.Interfaces.Services;
 using WebStore.Domain.Entities.Employees;
-using WebStore.Data;
+using WebStore.Services.Data;
 
-namespace WebStore.Infrastructure.Services.InMemory
+namespace WebStore.Services.Products.InMemory
 {
     public class InMemoryEmployeesData : IEmployeesData
     {
@@ -31,7 +31,7 @@ namespace WebStore.Infrastructure.Services.InMemory
 
             if (item is null)
                 return false;
-            else 
+            else
                 return _employees.Remove(item);
         }
 
@@ -40,7 +40,7 @@ namespace WebStore.Infrastructure.Services.InMemory
             if (emp is null)
                 throw new ArgumentNullException(nameof(Employee));
 
-            if (_employees.Contains(emp)) 
+            if (_employees.Contains(emp))
                 return;
 
             var item = GetById(emp.Id);
@@ -54,7 +54,7 @@ namespace WebStore.Infrastructure.Services.InMemory
         public IEnumerable<Employee> Get() => _employees;
 
         public Employee GetById(int id) => _employees.FirstOrDefault(emp => emp.Id == id);
-        
+
 
         public void SaveChanges()
         {

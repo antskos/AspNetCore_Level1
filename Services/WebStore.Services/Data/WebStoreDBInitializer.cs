@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using WebStore.DAL.Contetxt;
 using WebStore.Domain.Entities.Identity;
 
-namespace WebStore.Data
+namespace WebStore.Services.Data
 {
-    
+
 
     public class WebStoreDBInitializer
     {
@@ -25,7 +25,7 @@ namespace WebStore.Data
         }
 
 
-        public void Initialize() 
+        public void Initialize()
         {
             var db = _db.Database;
 
@@ -44,7 +44,7 @@ namespace WebStore.Data
         private void InitializeProducts()
         {
             var db = _db.Database;
-            
+
             // если есть товары в базе, то она проинициализирована
             if (_db.Products.Any()) return;
 
@@ -82,14 +82,14 @@ namespace WebStore.Data
             }
         }  //InitializeProducts() method
 
-        private void InitializeEmployees() 
+        private void InitializeEmployees()
         {
             if (_db.Employees.Any()) return;
-            
+
             using (var transaction = _db.Database.BeginTransaction())
             {
                 var employees = TestData.Employees.ToList();
-                    
+
                 employees.ForEach(emp => emp.Id = 0);
                 _db.Employees.AddRange(employees);
 
@@ -98,7 +98,7 @@ namespace WebStore.Data
             }
         }   //InitializeEmployees() method
 
-        private async Task InitializeIdentityAsync() 
+        private async Task InitializeIdentityAsync()
         {
             // проверка определены ли в БД "обязательные" роли и если нет создаём их
             if (!await _roleManager.RoleExistsAsync(Role.Administrator))
@@ -107,14 +107,14 @@ namespace WebStore.Data
             if (!await _roleManager.RoleExistsAsync(Role.User))
                 await _roleManager.CreateAsync(new Role { Name = Role.User });
 
-            if (await _userManager.FindByNameAsync(User.Administrator) is null) 
+            if (await _userManager.FindByNameAsync(User.Administrator) is null)
             {
-                var admin = new User(){ UserName = User.Administrator };
+                var admin = new User() { UserName = User.Administrator };
 
                 var create_result = await _userManager.CreateAsync(admin, User.DefaultAdminPassword);
                 if (create_result.Succeeded)
                     await _userManager.AddToRoleAsync(admin, Role.Administrator);
-                else 
+                else
                 {
                     var errors = create_result.Errors.Select(e => e.Description);
                     throw new InvalidOperationException($"Ошибка при создании пользователя с правами администратора: " +

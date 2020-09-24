@@ -5,15 +5,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Contetxt;
-using WebStore.Data;
-using WebStore.Infrastructure.Services.InSQL;
-using WebStore.Infrastructure.Services.InCookies;
+using WebStore.Services.Products.InCookies;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Interfaces.Services;
 using Microsoft.AspNetCore.Identity;
 using System;
 using AutoMapper;
-using WebStore.Infrastructure.AutoMapperProfiles;
+using WebStore.Services.Products.InSQL;
+using WebStore.Services.Mapping;
+using WebStore.Services.Data;
 
 namespace WebStore
 {

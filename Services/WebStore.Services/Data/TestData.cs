@@ -4,7 +4,7 @@ using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.Employees;
 
 
-namespace WebStore.Data
+namespace WebStore.Services.Data
 {
     public static class TestData
     {

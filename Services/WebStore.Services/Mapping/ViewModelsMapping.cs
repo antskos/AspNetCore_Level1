@@ -3,7 +3,7 @@ using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.Employees;
 using WebStore.Domain.ViewModels;
 
-namespace WebStore.Infrastructure.AutoMapperProfiles
+namespace WebStore.Services.Mapping
 {
     public class ViewModelsMapping : Profile
     {

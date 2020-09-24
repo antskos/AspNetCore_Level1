@@ -7,7 +7,7 @@ using WebStore.DAL.Contetxt;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces.Services;
 
-namespace WebStore.Infrastructure.Services.InSQL
+namespace WebStore.Services.Products.InSQL
 {
     public class SqlProductData : IProductData
     {
@@ -17,7 +17,7 @@ namespace WebStore.Infrastructure.Services.InSQL
         public IEnumerable<Section> GetSections() => _db.Sections;
 
         public IEnumerable<Brand> GetBrands() => _db.Brands;
-        
+
         public IEnumerable<Product> GetProducts(ProductFilter filter = null)
         {
             IQueryable<Product> query = _db.Products;
