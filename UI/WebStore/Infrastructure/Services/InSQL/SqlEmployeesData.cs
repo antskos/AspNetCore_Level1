@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using WebStore.Infrastructure.Interfaces;
+using WebStore.Interfaces.Services;
 using WebStore.DAL.Contetxt;
 using WebStore.Domain.Entities.Employees;
 using System.Linq;

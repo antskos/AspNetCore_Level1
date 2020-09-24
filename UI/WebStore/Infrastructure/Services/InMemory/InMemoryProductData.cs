@@ -1,4 +1,4 @@
-﻿using WebStore.Infrastructure.Interfaces;
+﻿using WebStore.Interfaces.Services;
 using WebStore.Domain.Entities;
 using System.Collections.Generic;
 using WebStore.Data;

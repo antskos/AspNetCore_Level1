@@ -11,7 +11,7 @@ using WebStore.DAL.Contetxt;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Entities.Orders;
 using WebStore.Domain.ViewModels;
-using WebStore.Infrastructure.Interfaces;
+using WebStore.Interfaces.Services;
 
 namespace WebStore.Infrastructure.Services.InSQL
 {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using WebStore.Domain.Entities;
 
-namespace WebStore.Infrastructure.Interfaces
+namespace WebStore.Interfaces.Services
 {
     public interface IProductData
     {
@@ -11,7 +11,7 @@ namespace WebStore.Infrastructure.Interfaces
 
         IEnumerable<Product> GetProducts(ProductFilter filter = null);
 
-        Product GetProductById(int id); 
-    
+        Product GetProductById(int id);
+
     }
 }
