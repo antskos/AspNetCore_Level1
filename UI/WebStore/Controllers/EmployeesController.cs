@@ -1,12 +1,12 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Infrastructure.Interfaces;
-using WebStore.ViewModels;
 using WebStore.Infrastructure.Mapping;
 using Microsoft.AspNetCore.Authorization;
 using WebStore.Domain.Entities.Identity;
 using AutoMapper;
 using WebStore.Domain.Entities.Employees;
+using WebStore.Domain.ViewModels;
 
 namespace WebStore.Controllers
 {

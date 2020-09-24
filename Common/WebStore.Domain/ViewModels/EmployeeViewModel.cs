@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace WebStore.ViewModels
+namespace WebStore.Domain.ViewModels
 {
     public class EmployeeViewModel //: IValidatableObject
     {
@@ -26,12 +26,12 @@ namespace WebStore.ViewModels
 
         [Display(Name = "Возраст")]
         [Required]
-        [Range(18,150,ErrorMessage = "Возраст должен быть в пределах от 18 до 150 лет")]
+        [Range(18, 150, ErrorMessage = "Возраст должен быть в пределах от 18 до 150 лет")]
         public int Age { get; set; }
 
         //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         //{
-            
+
         //}
     }
 }

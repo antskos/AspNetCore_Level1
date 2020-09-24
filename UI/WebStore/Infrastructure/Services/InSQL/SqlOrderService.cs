@@ -10,8 +10,8 @@ using System.Transactions;
 using WebStore.DAL.Contetxt;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Entities.Orders;
+using WebStore.Domain.ViewModels;
 using WebStore.Infrastructure.Interfaces;
-using WebStore.ViewModels;
 
 namespace WebStore.Infrastructure.Services.InSQL
 {

@@ -2,7 +2,7 @@
 using System.Linq;
 
 
-namespace WebStore.Models
+namespace WebStore.Domain.ViewModels
 {
     public class Cart
     {
@@ -12,7 +12,7 @@ namespace WebStore.Models
 
     }
 
-    public class CartItem 
+    public class CartItem
     {
         public int ProductId { get; set; }
 
