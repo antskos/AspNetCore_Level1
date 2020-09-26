@@ -16,6 +16,7 @@ using WebStore.Services.Mapping;
 using WebStore.Services.Data;
 using WebStore.Interfaces.TestAPI;
 using WebStore.Clients.Values;
+using WebStore.Clients.Employees;
 
 namespace WebStore
 {
@@ -95,7 +96,7 @@ namespace WebStore
 
             //services.AddSingleton<IProductData, InMemoryProductData>();
             services.AddScoped<IProductData, SqlProductData>();
-            services.AddScoped<IEmployeesData, SqlEmployeesData>();
+            services.AddScoped<IEmployeesData, EmployeesClient>();
             services.AddScoped<ICartService, CookiesCartService>();
             services.AddScoped<IOrderService, SqlOrderService>();
 
