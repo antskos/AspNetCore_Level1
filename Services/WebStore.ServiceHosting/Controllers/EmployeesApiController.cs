@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebStore.Domain;
 using WebStore.Domain.Entities.Employees;
 using WebStore.Interfaces.Services;
 
 namespace WebStore.ServiceHosting.Controllers
 {
     //[Route("api/[controller]")]      http://localhost:5001/api/employeesapi -- такой путь до контроллера по маршруту задаваемому этой строкой
-    [Route("api/employees")]        // http://localhost:5001/api/employees
+    //[Route("api/employees")]        // http://localhost:5001/api/employees
+    [Route(WebAPI.Employees)]        // http://localhost:5001/api/employees
     [Produces("application/json")]      // явное задание формата передачи данных клиенту
     [ApiController]
     public class EmployeesApiController : ControllerBase, IEmployeesData
