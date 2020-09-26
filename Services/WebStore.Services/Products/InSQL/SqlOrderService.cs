@@ -3,15 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
-using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
-using System.Transactions;
 using WebStore.DAL.Contetxt;
 using WebStore.Domain.DTO.Orders;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Entities.Orders;
-using WebStore.Domain.ViewModels;
 using WebStore.Interfaces.Services;
 using WebStore.Services.Mapping;
 
@@ -43,7 +39,7 @@ namespace WebStore.Services.Products.InSQL
                 Phone = orderModel.Order.Phone,
                 User = user,
                 Date = DateTime.Now,
-                //Items = new List<OrderItem>()
+                Items = new List<OrderItem>()
             };
 
             foreach (var item in orderModel.Items)
@@ -73,7 +69,7 @@ namespace WebStore.Services.Products.InSQL
         public async Task<OrderDTO> GetOrderById(int id)
         {
             var order =  await _db.Orders.
-                               Include(o => o.Items).
+                               Include(o => o.User).
                                FirstOrDefaultAsync(o => o.Id == id);
             return order.ToDTO();
         }
