@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Interfaces.Services;
+using WebStore.Domain.DTO.Products;
 
 namespace WebStore.Areas.Admin.Controllers
 {
@@ -22,7 +23,7 @@ namespace WebStore.Areas.Admin.Controllers
 
         public IActionResult Edit(int? id) 
         {
-            var product = id is null ? new Product() : _productData.GetProductById((int)id);
+            var product = id is null ? new ProductDTO() : _productData.GetProductById((int)id);
 
             if (product is null)
                 return NotFound();

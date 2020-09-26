@@ -32,6 +32,8 @@ namespace WebStore.Services.Mapping
             Section = p.Section.ToDTO()
         };
 
+        public static IEnumerable<ProductDTO> ToDTO(this IEnumerable<Product> products) => products.Select(ToDTO);
+
         public static Product FromDTO(this ProductDTO p) => p is null ? null : new Product
         {
             Id = p.Id,
@@ -42,5 +44,7 @@ namespace WebStore.Services.Mapping
             Brand = p.Brand.FromDTO(),
             Section = p.Section.FromDTO()
         };
+
+        public static IEnumerable<Product> FromDTO(this IEnumerable<ProductDTO> products) => products.Select(FromDTO);
     }
 }
