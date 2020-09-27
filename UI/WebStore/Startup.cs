@@ -114,10 +114,8 @@ namespace WebStore
             services.AddScoped<IValueService, ValuesClient>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            db.Initialize();
-
              if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
