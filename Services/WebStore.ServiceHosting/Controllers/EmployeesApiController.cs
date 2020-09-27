@@ -60,8 +60,8 @@ namespace WebStore.ServiceHosting.Controllers
         }
 
        
-        // будет ошибка при автоматизированной генерации документации по WebApi, правка позже
-        // [NonAction]  -- правка
+        
+        [NonAction]  // чтобы не было ошибки автоматизированной генерации документации по WebApi посредством swagger
         public void SaveChanges()
         {
             _employeesData.SaveChanges();
