@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using WebStore.DAL.Contetxt;
+using WebStore.DAL.Context;
 using WebStore.Services.Products.InCookies;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Interfaces.Services;

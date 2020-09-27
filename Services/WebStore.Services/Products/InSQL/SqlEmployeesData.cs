@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WebStore.Interfaces.Services;
-using WebStore.DAL.Contetxt;
+using WebStore.DAL.Context;
 using WebStore.Domain.Entities.Employees;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
