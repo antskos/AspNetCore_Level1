@@ -3,15 +3,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using WebStore.DAL.Context;
 using WebStore.Services.Products.InCookies;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Interfaces.Services;
 using Microsoft.AspNetCore.Identity;
 using System;
 using AutoMapper;
-using WebStore.Services.Products.InSQL;
 using WebStore.Services.Mapping;
 using WebStore.Services.Data;
 using WebStore.Interfaces.TestAPI;
@@ -19,6 +16,9 @@ using WebStore.Clients.Values;
 using WebStore.Clients.Employees;
 using WebStore.Clients.Products;
 using WebStore.Clients.Orders;
+using WebStore.Clients.Identity;
+using WebStore.DAL.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebStore
 {
@@ -45,8 +45,22 @@ namespace WebStore
             services.AddTransient<WebStoreDBInitializer>();
 
             services.AddIdentity<User, Role>().
-                AddEntityFrameworkStores<WebStoreDB>().
+                //AddEntityFrameworkStores<WebStoreDB>().
                 AddDefaultTokenProviders();
+
+            #region WebApi Identity clients -- хранение данных вместо базыц данных
+            services
+                .AddTransient<IUserStore<User>, UsersClient>()
+                .AddTransient<IUserPasswordStore<User>, UsersClient>()
+                .AddTransient<IUserEmailStore<User>, UsersClient>()
+                .AddTransient<IUserPhoneNumberStore<User>, UsersClient>()
+                .AddTransient<IUserTwoFactorStore<User>, UsersClient>()
+                .AddTransient<IUserClaimStore<User>, UsersClient>()
+                .AddTransient<IUserLoginStore<User>, UsersClient>();
+
+            services
+                .AddTransient<IRoleStore<Role>, RolesClient>();
+            #endregion
 
             services.Configure<IdentityOptions>(opt =>
                 {
