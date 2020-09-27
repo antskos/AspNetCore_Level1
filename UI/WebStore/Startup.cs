@@ -17,8 +17,6 @@ using WebStore.Clients.Employees;
 using WebStore.Clients.Products;
 using WebStore.Clients.Orders;
 using WebStore.Clients.Identity;
-using WebStore.DAL.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace WebStore
 {
@@ -38,11 +36,6 @@ namespace WebStore
                                        cfg.AddProfile<ViewModelsMapping>(); 
                                    }, 
                                    typeof(Startup));
-
-            services.AddDbContext<WebStoreDB>(opt =>
-                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddTransient<WebStoreDBInitializer>();
 
             services.AddIdentity<User, Role>().
                 //AddEntityFrameworkStores<WebStoreDB>().
@@ -125,7 +118,7 @@ namespace WebStore
         {
             db.Initialize();
 
-            if (env.IsDevelopment())
+             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
