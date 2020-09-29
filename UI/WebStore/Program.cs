@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace WebStore
 {
@@ -15,6 +17,13 @@ namespace WebStore
                 .ConfigureWebHostDefaults(host =>
                 {
                     host.UseStartup<Startup>();
+                    host.ConfigureLogging((host, log) => {          // возможность конфигурировать логирование в коде
+                        // log.ClearProviders();
+                        // log.AddProvider();
+                        // log.AddConsole(opt => opt.IncludeScopes = true);
+                        // log.AddFilter(level => level >= LogLevel.Information);
+                        // log.AddFilter("Microsoft", level >= LogLevel.Warning);   // для конкретной категории фильтр
+                    });
                 });
     }
 }
