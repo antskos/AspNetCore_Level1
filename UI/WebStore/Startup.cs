@@ -10,13 +10,14 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using AutoMapper;
 using WebStore.Services.Mapping;
-using WebStore.Services.Data;
 using WebStore.Interfaces.TestAPI;
 using WebStore.Clients.Values;
 using WebStore.Clients.Employees;
 using WebStore.Clients.Products;
 using WebStore.Clients.Orders;
 using WebStore.Clients.Identity;
+using Microsoft.Extensions.Logging;
+using WebStore.Logger;
 
 namespace WebStore
 {
@@ -114,8 +115,10 @@ namespace WebStore
             services.AddScoped<IValueService, ValuesClient>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
         {
+            log.AddLog4Net();
+
              if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
