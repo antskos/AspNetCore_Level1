@@ -8,7 +8,7 @@ using WebStore.Domain.Entities.Employees;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Entities.Orders;
 
-namespace WebStore.DAL.Contetxt
+namespace WebStore.DAL.Context
 {
     public class WebStoreDB : IdentityDbContext<User, Role, string>
     {

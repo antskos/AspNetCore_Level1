@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebStore.DAL.Contetxt;
+using WebStore.DAL.Context;
 using WebStore.Domain.Entities.Identity;
 
 namespace WebStore.Services.Data
