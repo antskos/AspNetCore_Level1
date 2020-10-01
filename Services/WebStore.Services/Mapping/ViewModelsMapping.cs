@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using WebStore.Domain.DTO.Products;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.Employees;
 using WebStore.Domain.ViewModels;
@@ -9,7 +10,7 @@ namespace WebStore.Services.Mapping
     {
         public ViewModelsMapping()
         {
-            CreateMap<Product, ProductViewModel>().
+            CreateMap<ProductDTO, ProductViewModel>().
                 ForMember(vm => vm.Brand, opt => opt.MapFrom(pr => pr.Brand.Name)).
                 ReverseMap();       // данные будут передаваться и в обратную сторону
 

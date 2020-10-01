@@ -1,29 +1,71 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using System;
+using WebStore.DAL.Contetxt;
+using WebStore.Domain.Entities.Identity;
+using WebStore.Interfaces.Services;
+using WebStore.Services.Data;
+using WebStore.Services.Products;
+using WebStore.Services.Products.InCookies;
+using WebStore.Services.Products.InSQL;
 
 namespace WebStore.ServiceHosting
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        public Startup(IConfiguration configuration) => Configuration = configuration;
 
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<WebStoreDB>(opt =>
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<WebStoreDBInitializer>();
+
+            services.AddIdentity<User, Role>().
+                AddEntityFrameworkStores<WebStoreDB>().
+                AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(opt =>
+            {
+#if DEBUG
+                // требования к паролю
+                opt.Password.RequiredLength = 3;
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequiredUniqueChars = 3;
+
+                // требования к пользователю
+                opt.User.RequireUniqueEmail = false;
+#endif
+                //создаваемые пользователи не заблокированы
+                opt.Lockout.AllowedForNewUsers = true;
+                // кол-во попыток ввода пароля
+                opt.Lockout.MaxFailedAccessAttempts = 7;
+                // блокировка пользователя при неверном пароле на кол-во минут
+                opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+            });
+
+            //services.AddScoped<IProductData, SqlProductData>();
+            //services.AddScoped<IEmployeesData, SqlEmployeesData>();
+            //services.AddScoped<ICartService, CookiesCartService>();
+            //services.AddScoped<IOrderService, SqlOrderService>();
+
+            services.AddWebStoreServices();
+
+            // вспомогательный сервис для сервиса корзины
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddControllers();
         }
 

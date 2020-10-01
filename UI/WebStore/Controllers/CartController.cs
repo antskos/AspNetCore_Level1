@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.ViewModels;
 using WebStore.Interfaces.Services;
+using WebStore.Domain.DTO.Orders;
 
 namespace WebStore.Controllers
 {
@@ -40,29 +41,39 @@ namespace WebStore.Controllers
             return RedirectToAction(nameof(Details));
         }
 
-        public IActionResult RemoveAll(int id)
+        public IActionResult RemoveAll()
         {
             _cartService.RemoveAll();
             return RedirectToAction(nameof(Details));
         }
 
         [HttpPost]
-        public async Task<IActionResult> CheckOut(OrderViewModel model, [FromServices] IOrderService orderService) 
+        public async Task<IActionResult> CheckOut(OrderViewModel OrderModel, [FromServices] IOrderService OrderService)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return View(nameof(Details), new CartOrderViewModel
                 {
                     Cart = _cartService.TransformFromCart(),
-                    Order = model
+                    Order = OrderModel
                 });
-            else 
+
+            var orderModel = new CreateOrderModel
             {
-                var order = await orderService.CreateOrder(User.Identity.Name, _cartService.TransformFromCart(), model);
+                Order = OrderModel,
+                Items = _cartService.TransformFromCart().Items
+                   .Select(item => new OrderItemDTO
+                   {
+                       Id = item.product.Id,
+                       Price = item.product.Price,
+                       Quantity = item.quantity
+                   })
+            };
 
-                _cartService.RemoveAll();
+            var order = await OrderService.CreateOrder(User.Identity.Name, orderModel);
 
-                return RedirectToAction(nameof(OrderConfirmed), new { id = order.Id });
-            }
+            _cartService.RemoveAll();
+
+            return RedirectToAction(nameof(OrderConfirmed), new { id = order.Id });
         }
 
         public IActionResult OrderConfirmed(int id) 
