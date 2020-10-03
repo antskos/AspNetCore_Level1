@@ -10,7 +10,7 @@ namespace WebStore.Controllers
     {
         public IActionResult Index() => View();
 
-        public IActionResult Blog() => View();
+        public IActionResult Blogs() => View();
 
         public IActionResult BlogSingle() => View();
 
@@ -31,15 +31,15 @@ namespace WebStore.Controllers
 
         public IActionResult Error404() => View();
 
-        public IActionResult ErrorStatus(string Code)
+        public IActionResult ErrorStatus(string code)
         {
-            switch (Code)
+            switch (code)
             {
                 case "404":
                     return RedirectToAction(nameof(Error404));
 
                 default:
-                    return Content($"Error {Code}");
+                    return Content($"Error {code}");
             }
         }
     }
