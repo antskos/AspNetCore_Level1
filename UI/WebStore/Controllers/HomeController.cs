@@ -25,5 +25,22 @@ namespace WebStore.Controllers
         public IActionResult ProductDetails() => View();
 
         public IActionResult Shop() => View();
+
+        public IActionResult Throw(string id) =>
+            throw new ApplicationException($"Исключение: {id ?? "без id"}");
+
+        public IActionResult Error404() => View();
+
+        public IActionResult ErrorStatus(string Code)
+        {
+            switch (Code)
+            {
+                case "404":
+                    return RedirectToAction(nameof(Error404));
+
+                default:
+                    return Content($"Error {Code}");
+            }
+        }
     }
 }
