@@ -17,14 +17,14 @@ namespace WebStore.Controllers
            в конструкторе для всего класса */
         //private readonly IMapper _mapper;
 
-        public CatalogController(IProductData ProductData, IMapper mapper)
+        public CatalogController(IProductData ProductData)
         {
             _productData = ProductData;
             //_mapper = mapper;
         }
 
         // можно подключить экземпляр AutoMapper через атрибут, если он нужен только в одном из методов
-        public IActionResult Shop(int? sectionId, int? brandId, [FromServices] IMapper mapper)
+        public IActionResult Shop(int? sectionId, int? brandId)
         {
             var filter = new ProductFilter
             {
@@ -38,11 +38,10 @@ namespace WebStore.Controllers
             {
                 SectionId = sectionId,
                 BrandId = brandId,
-                Products = products.
-                            //ToView()      //замена ручной проекции на автоматическую класса AutoMapper
-                            //Select(p => mapper.Map<ProductViewModel>(p)). // вызывается так
-                            Select(mapper.Map<ProductViewModel>).           // или так
-                            OrderBy(p => p.Order)
+                Products = products
+                            .FromDTO()
+                            .ToView()
+                            .OrderBy(p => p.Order)
             });
         }
 
