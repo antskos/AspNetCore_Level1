@@ -126,7 +126,7 @@ namespace WebStore.Tests.Controllers
 
             var controller = new CatalogController(product_data_mock.Object);
 
-            var result = controller.Shop(expected_brand_id, expected_section_id);
+            var result = controller.Shop(expected_section_id, expected_brand_id);
 
             var view_result = Assert.IsType<ViewResult>(result);
             var model = Assert.IsAssignableFrom<CatalogViewModel>(view_result.ViewData.Model);
