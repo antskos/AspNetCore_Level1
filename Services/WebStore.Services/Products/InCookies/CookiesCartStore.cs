@@ -13,7 +13,7 @@ namespace WebStore.Services.Products.InCookies
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly string _cartName;
 
-        public CookiesCartStore(IProductData productData, IHttpContextAccessor httpContextAccessor)
+        public CookiesCartStore(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
 
