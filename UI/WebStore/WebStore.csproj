@@ -43,5 +43,11 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\css\main.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 </Project>
