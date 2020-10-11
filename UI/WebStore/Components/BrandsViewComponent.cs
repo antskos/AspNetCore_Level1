@@ -25,7 +25,8 @@ namespace WebStore.Components
                {
                    Id = brand.Id,
                    Name = brand.Name,
-                   Order = brand.Order
+                   Order = brand.Order,
+                   ProductsNumber = brand.ProductsNumber
                })
                .OrderBy(brand => brand.Order);
 
