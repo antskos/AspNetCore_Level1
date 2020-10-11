@@ -16,6 +16,10 @@ namespace WebStore.Clients.Products
 
         public ProductsClient(IConfiguration configuration) : base(configuration, WebAPI.Products) { }
 
+        public BrandDTO GetBrandById(int id)
+        {
+            return Get<BrandDTO>($"{_serviceAddress}/brands/id");
+        }
 
         public IEnumerable<BrandDTO> GetBrands() => Get<IEnumerable<BrandDTO>>($"{_serviceAddress}/brands");
         
@@ -26,6 +30,11 @@ namespace WebStore.Clients.Products
             .Content
             .ReadAsAsync<IEnumerable<ProductDTO>>()
             .Result;
+
+        public SectionDTO GetSectionById(int id)
+        {
+            return Get<SectionDTO>($"{_serviceAddress}/sections/id");
+        }
 
         public IEnumerable<SectionDTO> GetSections() => Get<IEnumerable<SectionDTO>>($"{_serviceAddress}/sections");
 
