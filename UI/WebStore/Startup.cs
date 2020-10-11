@@ -43,7 +43,7 @@ namespace WebStore
                 //AddEntityFrameworkStores<WebStoreDB>().
                 AddDefaultTokenProviders();
 
-            #region WebApi Identity clients -- хранение данных вместо базыц данных
+            #region WebApi Identity clients -- хранение данных вместо базы данных
             services
                 .AddTransient<IUserStore<User>, UsersClient>()
                 .AddTransient<IUserPasswordStore<User>, UsersClient>()
