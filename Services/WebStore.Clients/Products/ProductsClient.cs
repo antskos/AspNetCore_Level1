@@ -18,7 +18,7 @@ namespace WebStore.Clients.Products
 
         public BrandDTO GetBrandById(int id)
         {
-            return Get<BrandDTO>($"{_serviceAddress}/brands/id");
+            return Get<BrandDTO>($"{_serviceAddress}/brands/{id}");
         }
 
         public IEnumerable<BrandDTO> GetBrands() => Get<IEnumerable<BrandDTO>>($"{_serviceAddress}/brands");
@@ -33,7 +33,7 @@ namespace WebStore.Clients.Products
 
         public SectionDTO GetSectionById(int id)
         {
-            return Get<SectionDTO>($"{_serviceAddress}/sections/id");
+            return Get<SectionDTO>($"{_serviceAddress}/sections/{id}");
         }
 
         public IEnumerable<SectionDTO> GetSections() => Get<IEnumerable<SectionDTO>>($"{_serviceAddress}/sections");
