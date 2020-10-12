@@ -28,7 +28,7 @@ namespace WebStore.Components
                     model.Product = product.Name;
             }
 
-            return View();
+            return View(model);
         }
     }
 }
