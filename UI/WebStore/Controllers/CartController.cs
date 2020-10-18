@@ -86,15 +86,15 @@ namespace WebStore.Controllers
 
         public IActionResult GetCartView() => ViewComponent("Cart");
 
-        [HttpGet("add/{id}")]
-        [HttpGet("increment/{id}")]
+        //[HttpGet("add/{id}")]
+        //[HttpGet("increment/{id}")]
         public IActionResult AddToCartAPI(int id)
         {
             _cartService.AddToCart(id);
             return Json(new { id, message = $"Товар с id:{id} добавлен в корзину" });
         }
 
-        [HttpGet("decrement/{id}")]
+        //[HttpGet("decrement/{id}")]
         public IActionResult DecrementFromCartAPI(int id)
         {
             _cartService.DecrementFromCart(id);
@@ -102,14 +102,14 @@ namespace WebStore.Controllers
 
         }
 
-        [HttpGet("remove/{id}")]
+        //[HttpGet("remove/{id}")]
         public IActionResult RemoveFromCartAPI(int id)
         {
             _cartService.RemoveFromCart(id);
             return Ok();
         }
 
-        [HttpGet("remove/all")]
+        //[HttpGet("remove/all")]
         public IActionResult RemoveAllAPI()
         {
             _cartService.RemoveAll();
