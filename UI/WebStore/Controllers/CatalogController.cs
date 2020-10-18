@@ -47,7 +47,13 @@ namespace WebStore.Controllers
                 Products = products.Products
                             .FromDTO()
                             .ToView()
-                            .OrderBy(p => p.Order)
+                            .OrderBy(p => p.Order),
+                PageViewModel = new PageViewModel 
+                {
+                    PageSize = page_size ?? 0,
+                    PageNumber = page,
+                    TotalItems = products.TotalCount
+                }
             });
         }
 
