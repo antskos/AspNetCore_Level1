@@ -14,7 +14,7 @@ namespace WebStore.Interfaces.Services
 
         BrandDTO GetBrandById(int id);
 
-        IEnumerable<ProductDTO> GetProducts(ProductFilter filter = null);
+        PageProductsDTO GetProducts(ProductFilter filter = null);
 
         ProductDTO GetProductById(int id);
 

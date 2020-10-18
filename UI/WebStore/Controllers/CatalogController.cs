@@ -44,7 +44,7 @@ namespace WebStore.Controllers
             {
                 SectionId = sectionId,
                 BrandId = brandId,
-                Products = products
+                Products = products.Products
                             .FromDTO()
                             .ToView()
                             .OrderBy(p => p.Order)

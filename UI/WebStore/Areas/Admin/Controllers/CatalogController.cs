@@ -4,6 +4,7 @@ using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Interfaces.Services;
 using WebStore.Domain.DTO.Products;
+using WebStore.Services.Mapping;
 
 namespace WebStore.Areas.Admin.Controllers
 {
@@ -16,10 +17,7 @@ namespace WebStore.Areas.Admin.Controllers
         {
             _productData = productData;
         }
-        public IActionResult Index()
-        {
-            return View(_productData.GetProducts());
-        }
+        public IActionResult Index() => View(_productData.GetProducts().Products.FromDTO());
 
         public IActionResult Edit(int? id) 
         {
