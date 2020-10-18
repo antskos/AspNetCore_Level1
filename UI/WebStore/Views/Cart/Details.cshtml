@@ -41,8 +41,8 @@
                                         <a class="cart_quantity_down" asp-controller="Cart" asp-action="DecrementFromCartAPI" asp-route-id="@product.Id" data-id="@product.Id"> - </a>
                                     </div>
                                 </td>
-                                <td class="cart_total" data-price="@(product.Price*quantity)">
-                                    <p class="cart_total_price">@((product.Price*quantity).ToString("C"))</p>
+                                <td class="cart_total">
+                                    <p class="cart_total_price" data-price="@(product.Price*quantity)">@((product.Price*quantity).ToString("C"))</p>
                                 </td>
                                 <td class="cart_delete">
                                     <a class="cart_quantity_delete" cart_quantity_up" asp-controller="Cart" asp-action="RemoveFromCartAPI" asp-route-id="@product.Id" data-id="@product.Id"><i class="fa fa-times"></i></a>
