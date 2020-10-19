@@ -17,9 +17,10 @@
                     ToView().
                     OrderBy(p => p.Order)" />*@
 
-                <partial name="Partial/_FeaturesItems" model="ProductData.GetProducts().Take(6).
-                                                                                        Select(mapper.Map<ProductViewModel>).
-                                                                                        OrderBy(p => p.Order)" />
+                <partial name="Partial/_FeaturesItems" model="ProductData.GetProducts().Products
+                    .Take(6)
+                    .Select(mapper.Map<ProductViewModel>)
+                    .OrderBy(p => p.Order)" />
 
                 <partial name="Partial/_CategoryTab" />
 
