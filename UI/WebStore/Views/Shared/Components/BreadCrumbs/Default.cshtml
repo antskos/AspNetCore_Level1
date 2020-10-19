@@ -1,0 +1,43 @@
+﻿@model BreadCrumbViewModel
+
+<div class="breadcrumbs">
+    <ol class="breadcrumb">
+        <li><a asp-controller="Home" asp-action="Index">Главная</a></li>
+        <li class="active"><a asp-controller="Catalog" asp-action="Shop">Каталог</a></li>
+
+        @*хлебная крошка для секции*@
+        @if (Model.Section != null)
+        {
+            if (Model.Section.ParentSection != null)
+            {
+                <li class="active">
+                    <a asp-controller="Catalog" asp-action="Shop" asp-route-sectionId="@Model.Section.ParentId">
+                        @Model.Section.ParentSection.Name
+                    </a>
+                </li>
+            }
+            <li class="active">
+                <a asp-controller="Catalog" asp-action="Shop" asp-route-sectionId="@Model.Section.Id">
+                    @Model.Section.Name
+                </a>
+            </li>
+        }
+
+        @*хлебная крошка для бренда*@
+        @if (Model.Brand != null)
+        {
+            <li class="active">
+                <a asp-controller="Catalog" asp-action="Shop" asp-route-brandId="@Model.Brand.Id">
+                    @Model.Brand.Name
+                </a>
+            </li>
+        }
+
+        @*хлебная крошка товара*@
+        @if (Model.Product != null)
+        {
+            <li @Model.Product />
+        }
+
+    </ol>
+</div>

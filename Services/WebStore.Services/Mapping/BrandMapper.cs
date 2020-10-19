@@ -11,7 +11,8 @@ namespace WebStore.Services.Mapping
         {
             Id = brand.Id,
             Name = brand.Name,
-            Order = brand.Order
+            Order = brand.Order,
+            ProductsNumber = brand.Products.Count
         };
 
         public static IEnumerable<BrandDTO> ToDTO(this IEnumerable<Brand> brands) => brands.Select(ToDTO);
@@ -21,7 +22,7 @@ namespace WebStore.Services.Mapping
         {
             Id = brand.Id,
             Name = brand.Name,
-            Order = brand.Order
+            Order = brand.Order,
         };
 
         public static IEnumerable<Brand> FromDTO(this IEnumerable<BrandDTO> brands) => brands.Select(FromDTO);
