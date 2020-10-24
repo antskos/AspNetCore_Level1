@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using WebStore.Domain.Entities;
 using WebStore.Domain.ViewModels;
 using WebStore.Interfaces.Services;
@@ -13,6 +15,7 @@ namespace WebStore.Controllers
     {
         private readonly IProductData _productData;
         private readonly IConfiguration _configuration;
+        private const string _pageSize = "PageSize";
 
         /* если нужны проекции классов в нескольких местах,
          * то экземпляр AutoMapper инициализируем
@@ -29,7 +32,7 @@ namespace WebStore.Controllers
         // можно подключить экземпляр AutoMapper через атрибут, если он нужен только в одном из методов
         public IActionResult Shop(int? sectionId, int? brandId, int page = 1)
         {
-            var page_size = int.TryParse(_configuration["PageSize"], out var size) ? size : (int?)null;
+            var page_size = int.TryParse(_configuration[_pageSize], out var size) ? size : (int?)null;
             var filter = new ProductFilter
             {
                 SectionId = sectionId,
@@ -66,5 +69,29 @@ namespace WebStore.Controllers
             else return View(product.FromDTO().ToView());
         }
 
+
+        #region API
+
+        public IActionResult GetCatalogHTML(int? sectionId, int? brandId, int page = 1)
+        {
+            return PartialView("Partial/_FeaturesItems", GetProducts(sectionId, brandId, page));
+        }
+
+        public IEnumerable<ProductViewModel> GetProducts(int? sectionId, int? brandId, in int page = 1)
+        {
+            return _productData.GetProducts(new ProductFilter
+            {
+                SectionId = sectionId,
+                BrandId = brandId,
+                Page = page,
+                PageSize = int.Parse(_configuration[_pageSize])
+            }).Products
+                .FromDTO()
+                .ToView()
+                .OrderBy(p => p.Order);
+                             
+        }
+
+        #endregion
     }
 }
