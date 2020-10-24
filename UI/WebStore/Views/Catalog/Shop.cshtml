@@ -5,6 +5,7 @@
 <section>
     <div class="container">
         <vc:bread-crumbs />
+
         <div class="row">
             <div class="col-sm-3">
                 <partial name="Partial/_LeftSideBar" />
@@ -25,4 +26,16 @@
         </div>
     </div>
 </section>
+
+@section Scripts{
+    <script src="~/lib/jquery-loading-overlay/loadingoverlay.min.js"></script>
+    <script src="~/js/Catalog/CatalogLogic.js" asp-append-version="true"></script>
+    <script>
+        $(function () {
+            Catalog.init({
+                getViewLink: "@Url.Action("GetCatalogHtml","Catalog")"
+            });
+        })
+    </script>
+}
 

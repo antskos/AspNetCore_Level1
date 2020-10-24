@@ -72,7 +72,7 @@ namespace WebStore.Controllers
 
         #region API
 
-        public IActionResult GetCatalogHTML(int? sectionId, int? brandId, int page = 1)
+        public IActionResult GetCatalogHtml(int? sectionId, int? brandId, int page)
         {
             return PartialView("Partial/_FeaturesItems", GetProducts(sectionId, brandId, page));
         }
