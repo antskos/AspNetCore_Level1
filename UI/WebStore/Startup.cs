@@ -19,6 +19,7 @@ using WebStore.Clients.Identity;
 using Microsoft.Extensions.Logging;
 using WebStore.Logger;
 using WebStore.Middleware;
+using WebStore.Hubs;
 
 namespace WebStore
 {
@@ -33,6 +34,8 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
+
             services.AddAutoMapper(cfg => 
                                    {
                                        cfg.AddProfile<ViewModelsMapping>(); 
@@ -138,6 +141,8 @@ namespace WebStore
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<InformationHub>("/info");
+
                 endpoints.MapControllerRoute(
                     name: "areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"

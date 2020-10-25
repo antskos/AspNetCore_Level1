@@ -81,7 +81,6 @@ namespace WebStore.Services.Products.InCookies
                 cart.Items.Remove(item);
             else
                 item.Quantity--;
-            Cart = cart;
 
             // у преподавателя такой код
             //if (item is null) return;   // не понятно как такое может быть(по идее к не добавленому товару, мы не должны иметь возможности применить этот метод)
@@ -89,7 +88,8 @@ namespace WebStore.Services.Products.InCookies
             //    item.Quantity--;
             //if (item.Quantity == 0)
             //    cart.Items.Remove(item);
-            // и вообще может вынести во ViewModel, что или товара одна штука или больше, или он удаляется из списка ???
+
+            Cart = cart;
         }
 
         public void RemoveAll()

@@ -37,7 +37,7 @@ namespace WebStore.Clients.Base
             var response = await _client.GetAsync(url, cancel);
             return await response
                 .EnsureSuccessStatusCode()      
-                .Content.ReadAsAsync<T>();       // десериализуем содержимое контента в нужный тип объекта
+                .Content.ReadAsAsync<T>(cancel);       // десериализуем содержимое контента в нужный тип объекта
         }
 
         protected HttpResponseMessage Post<T>(string url, T item) => PostAsync(url, item).Result;

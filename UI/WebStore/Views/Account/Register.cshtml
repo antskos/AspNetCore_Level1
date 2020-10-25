@@ -13,7 +13,7 @@
 
                         <input asp-for="UserName" placeholder="Имя пользователя" />
                         <span asp-validation-for="UserName" class="text-danger"></span>
-                        
+
                         <input asp-for="Password" placeholder="Пароль" />
                         <span asp-validation-for="Password" class="text-danger"></span>
 
@@ -27,3 +27,8 @@
         </div>
     </div>
 </section><!--/form-->
+
+@section Scripts
+{
+    <partial name="Partial/_ValidationScriptsPartial" />
+}

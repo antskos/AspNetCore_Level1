@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | E-Shopper</title>
+
+    @*вызов частичного представления: первый способ*@
+    @*@await Html.PartialAsync("Partial/_Styles")*@
+
+    @*вызов частичного представления: второй способ*@
+    <partial name="Partial/_Styles" />
+
+    @await RenderSectionAsync("Styles", false)
+
+    <!--[if lt IE 9]>
+    <script src="~/js/html5shiv.js"></script>
+    <script src="~/js/respond.min.js"></script>
+    <![endif]-->
+    <partial name="Partial/_PartInHead1" />
+</head><!--/head-->
+
+<body>
+
+    @RenderBody()
+
+    <partial name="Partial/_Scripts" />
+
+    @await RenderSectionAsync("Scripts", false)
+</body>
+</html>
